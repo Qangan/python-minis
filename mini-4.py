@@ -1,0 +1,1 @@
+print((lambda x: {val: (tuple(filter(lambda z: x[z] == val, x)) if list(x.values()).count(val) > 1 else list(filter(lambda y: x[y] == val, x))[0]) for val in x.values()})({"Ivanov": 97832, "Petrov": 55521, "Kuznecov": 97832}))
