@@ -12,5 +12,9 @@ def flatten(ll, depth=None):
         for i in range(depth):
              ll = [unpack_list(i)[j] for i in ll for j in range(len(unpack_list(i)))]
         return ll
-print(flatten([1,2,3,[1,[2,3]]], depth=0))
 
+assert(flatten([1,2,3,[1,[2,[3]]]], depth=0) == [1,2,3,[1,[2,[3]]]])
+assert(flatten([1,2,3,[1,[2,[3]]]], depth=1) == [1,2,3,1,[2,[3]]])
+assert(flatten([1,2,3,[1,[2,[3]]]], depth=2) == [1,2,3,1,2,[3]])
+assert(flatten([1,2,3,[1,[2,[3]]]], depth=3) == [1,2,3,1,2,3])
+assert(flatten([1,2,3,[1,[2,[3]]]], depth=100000) == [1,2,3,1,2,3])
