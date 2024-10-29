@@ -16,5 +16,4 @@ multi_sum = specialize(mult_sum, 1, 2, 3, 4, 5, 6, 7)
 
 assert(plus_two(1) == summ(1, y = 2))
 assert(multi_sum(8) == mult_sum(1,2,3,4,5,6,7,8))
-assert((x := specialize(summ, y=2))(1) == 3)  
-
+assert((x := specialize(summ, y=2))(1) == 3)
