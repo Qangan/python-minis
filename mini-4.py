@@ -4,7 +4,7 @@
 def reverse_dict(source):
     result = {}
     for val in source.values():
-        if list(source.values()).count(val) > 1:
+        if len(tuple(filter(lambda x: source[x] == val, source.keys()))) > 1:
             result[val] = tuple(filter(lambda v: source[v] == val, source))
         else:
             result[val] = list(filter(lambda v: source[v] == val, source))[0]

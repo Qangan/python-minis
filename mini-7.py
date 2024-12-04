@@ -1,18 +1,32 @@
-def deprecated(since = None, will_be_removed = None):
+def deprecated(since=None, will_be_removed=None):
     def deprecat(func):
         def depr(*args, **kwargs):
             name = func.__name__
+            since_message = f'Warning: function {name} is deprecated since version {since}. '
+            nosince_message = f'Warning: function {name} is deprecated. '
+            iwbrm = "It will be removed in "
+            ftr = "future versions."
+            vers = f"version {will_be_removed}"
             if since and will_be_removed:
-                print(f"Warning: function {name} is deprecated since version {since}. It will be removed in version {will_be_removed}.")
+                print(since_message + iwbrm + vers)
             elif since:
-                print(f"Warning: function {name} is deprecated since version {since}. It will be removed in future versions.")
+                print(since_message + iwbrm + ftr)
             elif will_be_removed:
-                print(f"Warning: function {name} is deprecated. It will be removed in version {will_be_removed}.")
+                print(nosince_message + iwbrm + vers)
             else:
-                print(f"Warning: function {name} is deprecated. It will be removed in future versions.")
-            func(*args, **kwargs)
+                print(nosince_message + iwbrm + ftr)
+            return func(*args, **kwargs)
         return depr
+    if callable(since):
+        func = since
+        since = None
+        return deprecat(func)
     return deprecat
+
+@deprecated
+def printiz(arg, arg2):
+    print(arg, arg2)
+printiz(1, arg2 = ())
 
 @deprecated()
 def printi_with_no_args(arg, arg2):
