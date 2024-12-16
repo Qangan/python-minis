@@ -3,13 +3,8 @@ def chain(*arrs):
         yield from arr
 
 def cycle(arr):
-    content = []
-    for i in arr:
-        yield i
-        content.append(i)
-    while content:
-        for i in content:
-            yield i
+    while True:
+        yield from arr
 
 def take(arr, n):
     i = 0
