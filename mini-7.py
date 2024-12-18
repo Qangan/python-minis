@@ -1,26 +1,26 @@
-def deprecated(since=None, will_be_removed=None):
-    def deprecat(func):
-        def depr(*args, **kwargs):
-            name = func.__name__
-            since_message = f'Warning: function {name} is deprecated since version {since}. '
-            nosince_message = f'Warning: function {name} is deprecated. '
-            iwbrm = "It will be removed in "
-            ftr = "future versions."
-            vers = f"version {will_be_removed}"
-            if since and will_be_removed:
-                print(since_message + iwbrm + vers)
-            elif since:
-                print(since_message + iwbrm + ftr)
-            elif will_be_removed:
-                print(nosince_message + iwbrm + vers)
-            else:
-                print(nosince_message + iwbrm + ftr)
-            return func(*args, **kwargs)
-        return depr
-    if callable(since):
-        func = since
-        since = None
-        return deprecat(func)
+def deprecated(func=None, *, since=None, will_be_removed=None):
+    
+    if func is None:
+        return lambda f: deprecated(f, since=since, will_be_removed=will_be_removed)
+    
+    def deprecat(*args, **kwargs):
+        name = func.__name__
+        since_message = f'Warning: function {name} is deprecated since version {since}. '
+        nosince_message = f'Warning: function {name} is deprecated. '
+        iwbrm = "It will be removed in "
+        ftr = "future versions."
+        vers = f"version {will_be_removed}"
+        
+        if since and will_be_removed:
+            print(since_message + iwbrm + vers)
+        elif since:
+            print(since_message + iwbrm + ftr)
+        elif will_be_removed:
+            print(nosince_message + iwbrm + vers)
+        else:
+            print(nosince_message + iwbrm + ftr)
+            
+        return func(*args, **kwargs)
     return deprecat
 
 @deprecated

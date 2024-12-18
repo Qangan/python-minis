@@ -4,13 +4,11 @@ class LRUCache:
         self.capacity = capacity
         self.tickstamp = 0
     def put(self, key, value):
-        if key in self.storage:
-            self.storage[key] = [value, self.tickstamp]
-        else:
+        if key not in self.storage:
             if len(self.storage.keys()) >= self.capacity:
                 min_key = sorted(self.storage.items(), key=lambda x: x[1][1])[0][0]
                 del self.storage[min_key]
-            self.storage[key] = [value, self.tickstamp]
+        self.storage[key] = [value, self.tickstamp]
         self.tickstamp += 1
     def get(self, key):
         if key in self.storage:
@@ -18,8 +16,7 @@ class LRUCache:
             self.storage[key][1] = self.tickstamp
             self.tickstamp += 1
             return value
-        else:
-            return None
+        return None
 
 
 cache = LRUCache(2)
