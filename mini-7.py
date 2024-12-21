@@ -1,8 +1,11 @@
+from functools import wraps
+
 def deprecated(func=None, *, since=None, will_be_removed=None):
     
     if func is None:
         return lambda f: deprecated(f, since=since, will_be_removed=will_be_removed)
     
+    @wraps(func)
     def deprecat(*args, **kwargs):
         name = func.__name__
         since_message = f'Warning: function {name} is deprecated since version {since}. '
